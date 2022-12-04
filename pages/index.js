@@ -122,6 +122,7 @@ useEffect(() => {
     setIsMinting(false)
   }
  const EligbleForFreeMint = NumberMinted < 1
+ const isDefPublicSale = NumberMinted> 5
 
   return ( 
 
@@ -145,7 +146,7 @@ useEffect(() => {
                   className="w-full mt-auto mb-0 sm:h-[58px] md:w-[100px] mx-auto mt-2"
                 />
 	    <h1 className="tracking-wide font-Righteous uppercase font-bold text-3xl md:text-4xl text-brand-02 bg-clip-text mt-4 border-2 border-blue-300 p-3 rounded-md">
-            {!walletAddress? 'Minting is Live!' : paused ? 'Paused' : isWlMint && isValid ? 'WhiteListed-Sale' : 'Public Sale'} </h1>
+            {!walletAddress? 'Minting is Live!' : paused ? 'Paused' : isWlMint && isValid ? 'WhiteListed-Sale' : isValid && isDefPublicSale ?'Public Sale' : 'Public Sale'} </h1>
 
             <h3 className="text-sm text-gray-100 tracking-widest">
             {walletAddress
@@ -226,7 +227,7 @@ useEffect(() => {
 
                     <div className="flex items-center space-x-3">
                     <p>
-                        {Number.parseFloat(paused ? '0.00' : isWlMint && isValid && EligbleForFreeMint ? config.wlcost*(mintAmount-1) : isWlMint && isValid && !EligbleForFreeMint ? config.wlcost*mintAmount : config.publicSalePrice*mintAmount).toFixed(
+                        {Number.parseFloat(paused ? '0.00' : isDefPublicSale? config.publicSalePrice : isWlMint && isValid && EligbleForFreeMint ? config.wlcost*(mintAmount-1) : isWlMint && isValid && !EligbleForFreeMint ? config.wlcost*mintAmount : config.publicSalePrice*mintAmount).toFixed(
                           4
                         )}{' '}
                         ETH
@@ -245,7 +246,7 @@ useEffect(() => {
                         : 'bg-gradient-to-br from-brand-01 to-brand-02 shadow-lg border border-transparent hover:shadow-black/60'
                     } font-Righteous mt-auto mb-0  w-full px-6 py-3 rounded-md text-2xl text-black  mx-4 tracking-wide uppercase border-violet-50`}
                     disabled={paused || isMinting}
-                    onClick={isWlMint && isValid ? wlMintHandler : publicMintHandler}
+                    onClick={isDefPublicSale? publicMintHandler: isWlMint && isValid ? wlMintHandler : publicMintHandler}
                   >
                     {isMinting ? 'Minting...' : 'Mint'}
                   </button>
