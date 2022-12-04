@@ -122,7 +122,7 @@ useEffect(() => {
     setIsMinting(false)
   }
  const EligbleForFreeMint = NumberMinted < 1
- const isDefPublicSale = NumberMinted> 5
+ const isDefPublicSale = NumberMinted >= 5
 
   return ( 
 
@@ -146,7 +146,7 @@ useEffect(() => {
                   className="w-full mt-auto mb-0 sm:h-[58px] md:w-[100px] mx-auto mt-2"
                 />
 	    <h1 className="tracking-wide font-Righteous uppercase font-bold text-3xl md:text-4xl text-brand-02 bg-clip-text mt-4 border-2 border-blue-300 p-3 rounded-md">
-            {!walletAddress? 'Minting is Live!' : paused ? 'Paused' : isWlMint && isValid ? 'WhiteListed-Sale' : isValid && isDefPublicSale ?'Public Sale' : 'Public Sale'} </h1>
+            {!walletAddress? 'Minting is Live!' : isDefPublicSale? 'PubLic Sale' : paused ? 'Paused' : isWlMint && isValid ? 'WhiteListed-Sale'  : 'Public Sale'} </h1>
 
             <h3 className="text-sm text-gray-100 tracking-widest">
             {walletAddress
